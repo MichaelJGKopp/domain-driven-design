@@ -19,7 +19,6 @@
         <module>order-application</module>
         <module>order-messaging</module>
         <module>order-container</module>
-        <module>order-application-service</module>
     </modules>
 
     <properties>

@@ -8,7 +8,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.6.7</version>
-    <!-- emmpty relative path for external parent pom from springboot lib -->
+    <!-- empty relative path for external parent pom from springboot lib -->
     <relativePath/>
   </parent>
 
@@ -24,14 +24,40 @@
 
   <properties>
     <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
+    <java.version>17</java.version>
   </properties>
 
   <dependencyManagement>
-
+    <dependencies>
+      <dependency>
+        <groupId>tech.michael</groupId>
+        <artifactId>order-domain-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.michael</groupId>
+        <artifactId>order-application-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.michael</groupId>
+        <artifactId>order-application</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.michael</groupId>
+        <artifactId>order-dataaccess</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tech.michael</groupId>
+        <artifactId>order-messaging</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
   </dependencyManagement>
 
   <dependencies>
-
   </dependencies>
 
   <build>
@@ -42,7 +68,7 @@
         <version>3.9.0</version>
         <configuration>
           <!-- java version -->
-          <release>${maven-compiler-plugin.version}</release>
+          <release>${java.version}</release>
         </configuration>
       </plugin>
     </plugins>
