@@ -1,0 +1,70 @@
+package tech.michael.domain.valueobject;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class Money {
+    private final BigDecimal amount;
+
+    public Money(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public boolean isGreaterThanZero() {
+        return this.amount != null && this.amount.compareTo(BigDecimal.ZERO) > 0;
+    }
+
+    public boolean isGreaterThan(Money money) {
+        if (money == null) {
+            throw new IllegalArgumentException("Cannot compare with null Money");
+        }
+        return this.amount != null && this.amount.compareTo(money.getAmount()) > 0;
+    }
+
+    public Money add(Money money) {
+        if (money == null) {
+            throw new IllegalArgumentException("Cannot add null Money");
+        }
+        return new Money(setScale(this.amount.add(money.getAmount())));
+    }
+
+    public Money subtract(Money money) {
+        if (money == null) {
+            throw new IllegalArgumentException("Cannot subtract null Money");
+        }
+        return new Money(setScale(this.amount.subtract(money.getAmount())));
+    }
+
+    public Money multiply(Money money) {
+        if (money == null) {
+            throw new IllegalArgumentException("Cannot multiply by null Money");
+        }
+        return new Money(setScale(this.amount.multiply(money.getAmount())));
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    // equals and hashcode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Money))
+            return false;
+        Money money = (Money) o;
+        return amount.equals(money.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return amount.hashCode();
+    }
+
+    // rounds after each operation to avoid numbers such as 0.3333
+    // and reduce cumulative statistical errors
+    private BigDecimal setScale(BigDecimal input) {
+        return input.setScale(2, RoundingMode.HALF_EVEN);
+    }
+}
